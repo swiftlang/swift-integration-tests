@@ -18,10 +18,10 @@ where the path is the unarchived package root path.
 Tests
 -----
 
-Here is a list of tests in the repository:
+Here is a partial list of tests in the repository:
 
 | Test Name                | Functionality                                                    |
-|--------------------------+------------------------------------------------------------------|
+|--------------------------|------------------------------------------------------------------|
 | basic                    | check output of `swift --version`                                |
 | example-package-dealer   | build the example package-dealer package                         |
 | repl                     | various REPL sanity checks, notably importing Darwin and Glibc   |
