@@ -22,9 +22,9 @@ Here is a partial list of tests in the repository:
 
 | Test Name                | Functionality                                                    |
 |--------------------------|------------------------------------------------------------------|
-| basic                    | check output of `swift --version`                                |
-| example-package-dealer   | build the example package-dealer package                         |
-| repl                     | various REPL sanity checks, notably importing Darwin and Glibc   |
+| basic                    | Check output of `swift --version`                                |
+| example-package-dealer   | Build the example package-dealer package                         |
+| repl                     | Various REPL sanity checks, notably importing Darwin and Glibc   |
 | swift-build-self-host    | Use swift build to build itself                                  |
 | swift-compiler           | Compile a basic swift file                                       |
 | test-c-library-swiftpm   | Build a package that links a 3rd party library                   |
