@@ -1,7 +1,7 @@
 Swift Package Tests
 ===================
 
-Automated tests for validating the downloadable Swift packages behave correctly.
+Automated tests for validating the generated Swift snapshots behave correctly.
 
 Usage
 -----
