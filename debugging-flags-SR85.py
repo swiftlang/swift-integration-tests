@@ -1,6 +1,8 @@
 # Check that debugging can print variables.
 #   https://bugs.swift.org/browse/SR-85
 #
+# REQUIRES: disabled
+#
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
 # RUN: mkdir -p %t.dir/tool
