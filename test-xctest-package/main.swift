@@ -1,7 +1,7 @@
 import XCTest
 
 class MyXCTest : XCTestCase {
-    var allTests : [(String, () -> ())] {
+    var allTests : [(String, () throws -> ())] {
         return []
     }
 }
