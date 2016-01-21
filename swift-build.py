@@ -1,5 +1,8 @@
 # Trivial test for Swift build.
 #
+# No swift-build in 2.2
+# REQUIRES: disabled
+#
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
 # RUN: mkdir -p %t.dir/tool
