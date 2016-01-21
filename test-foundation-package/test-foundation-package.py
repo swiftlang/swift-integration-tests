@@ -1,5 +1,9 @@
 # Trivial test for importing Foundation
 #
+#
+# No swift-build in 2.2
+# REQUIRES: disabled
+#
 # 
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
