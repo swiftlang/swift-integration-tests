@@ -11,7 +11,7 @@ swift-project.
 
 Run the tests using:
 
-    ./test -sv --param package-path=/path/to/downloadable-package .
+    sh ./litTest -sv --param package-path=/path/to/downloadable-package .
 
 where the path is the unarchived package root path.
 
