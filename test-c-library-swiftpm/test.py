@@ -27,7 +27,7 @@
 #
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 #
-# CHECK-BUILD-LOG: Compiling Swift Module 'testApp'
+# CHECK-BUILD-LOG: Compile Swift Module 'testApp'
 
 # Verify that the build worked.
 #
@@ -45,4 +45,4 @@
 # RUN: echo END-OF-INPUT >> %t.rebuild-log
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 #
-# CHECK-REBUILD-LOG-NOT: Compiling
+# CHECK-REBUILD-LOG-NOT: Compile
