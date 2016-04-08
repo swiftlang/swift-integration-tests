@@ -1,11 +1,16 @@
 import XCTest
 
 class MyXCTest : XCTestCase {
-    var allTests : [(String, () throws -> ())] {
-        return []
+    static var allTests: [(String, (MyXCTest) -> () throws -> ())] {
+        return [("test_example", test_example)]
+    }
+
+    func test_example() {
+      print("HI")
     }
 }
 
-let x = MyXCTest()
+XCTMain([
+  testCase(MyXCTest.allTests)
+])
 
-print("HI")
