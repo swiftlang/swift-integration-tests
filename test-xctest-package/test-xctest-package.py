@@ -1,6 +1,8 @@
 # Trivial test for importing XCTest.
 #
-
+# https://github.com/apple/swift-corelibs-foundation/pull/304
+# REQUIRES: disabled
+#
 # This test doesn't work on Darwin yet, because the XCTest overlay isn't shipped
 # with the package, and can't be found:#
 #   <rdar://problem/23600043> Cannot import XCTest with swift from a downloadable package
