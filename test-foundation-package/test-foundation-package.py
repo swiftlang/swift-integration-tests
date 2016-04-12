@@ -1,7 +1,5 @@
 # Trivial test for importing Foundation
 #
-# https://github.com/apple/swift-corelibs-foundation/pull/304
-# REQUIRES: disabled
 # 
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
