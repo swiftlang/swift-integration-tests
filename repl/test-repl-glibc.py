@@ -1,5 +1,7 @@
 # Tests that importing Glibc works on Linux
 #
+# XFAIL: linux
+# TRACKED BY: SR-1109
 # REQUIRES: platform=Linux
 # REQUIRES: have-pexpect
 #
