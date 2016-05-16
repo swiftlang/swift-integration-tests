@@ -12,7 +12,7 @@
 #
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 #
-# CHECK-BUILD-LOG: swiftc{{.*}} -module-name specialtool {{.*}} "{{.*}}/more spaces/special tool/some file.swift"
+# CHECK-BUILD-LOG: swiftc{{.*}} -module-name special_tool {{.*}} "{{.*}}/more spaces/special tool/some file.swift"
 
 # Verify that the tool exists and works.
 #
