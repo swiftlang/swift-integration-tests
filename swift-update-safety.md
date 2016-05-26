@@ -10,7 +10,7 @@ Create a dummy package.
 
 ```
 RUN: mkdir -p %t.dir/Dep
-RUN: %{swift} package -C %t.dir/Dep init=library
+RUN: %{swift} package -C %t.dir/Dep init --type library
 RUN: git -C %t.dir/Dep init
 RUN: git -C %t.dir/Dep add -A
 RUN: git -C %t.dir/Dep commit -m "Initial commit."
@@ -21,7 +21,7 @@ Create the test package.
 
 ```
 RUN: mkdir -p %t.dir/Cmd
-RUN: %{swift} package -C %t.dir/Cmd init=executable
+RUN: %{swift} package -C %t.dir/Cmd init --type executable
 RUN: echo "import PackageDescription" >  %t.dir/Cmd/Package.swift
 RUN: echo "let package = Package(" >>  %t.dir/Cmd/Package.swift
 RUN: echo "  name: \"Cmd\"," >>  %t.dir/Cmd/Package.swift

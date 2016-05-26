@@ -6,7 +6,7 @@
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
-RUN: %{swift} package --chdir %t.dir/Project init=library
+RUN: %{swift} package --chdir %t.dir/Project init --type library
 RUN: %{swift} build --chdir %t.dir/Project &> %t.build-log
 RUN: %{swift} test --chdir %t.dir/Project &> %t.test-log
 ```

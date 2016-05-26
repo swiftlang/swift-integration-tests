@@ -5,7 +5,7 @@
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
-RUN: %{swift} package --chdir %t.dir/Project init=executable
+RUN: %{swift} package --chdir %t.dir/Project init --type executable
 RUN: %{swift} build --chdir %t.dir/Project &> %t.build-log
 ```
 
