@@ -13,6 +13,8 @@ RUN: mkdir -p %t.dir/Dep
 RUN: %{swift} package -C %t.dir/Dep init --type library
 RUN: git -C %t.dir/Dep init
 RUN: git -C %t.dir/Dep add -A
+RUN: git -C %t.dir/Dep config user.name "Test User"
+RUN: git -C %t.dir/Dep config user.email "test@user.com"
 RUN: git -C %t.dir/Dep commit -m "Initial commit."
 RUN: git -C %t.dir/Dep tag 1.0.0
 ```
