@@ -9,6 +9,8 @@
 # RUN: %{FileCheck} --input-file %t.dir/output.txt %s
 # CHECK: OK
 
+from __future__ import print_function
+
 import pexpect, sys
 
 swift = "swift"
@@ -56,4 +58,4 @@ repl.expect("init")
 # print repl.match.groups()
 # print '--'
 
-print "OK"
+print("OK")
