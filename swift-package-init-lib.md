@@ -28,9 +28,9 @@ RUN: %{FileCheck} --check-prefix CHECK-TEST-LOG --input-file %t.test-log %s
 ```
 
 ```
-# CHECK-TEST-LOG: Compile Swift Module 'ProjectTests'
-# CHECK-TEST-LOG: Test Suite 'All tests' passed
-# CHECK-TEST-LOG-NEXT: Executed 1 test
+CHECK-TEST-LOG: Compile Swift Module 'ProjectTests'
+CHECK-TEST-LOG: Test Suite 'All tests' passed
+CHECK-TEST-LOG-NEXT: Executed 1 test
 ```
 
 ## Check there were no compile errors or warnings.
