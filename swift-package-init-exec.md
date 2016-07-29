@@ -6,7 +6,7 @@
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
 RUN: %{swift} package --chdir %t.dir/Project init --type executable
-RUN: %{swift} build --chdir %t.dir/Project &> %t.build-log
+RUN: %{swift} build --chdir %t.dir/Project 2>&1 | tee %t.build-log
 ```
 
 ## Check the build log.

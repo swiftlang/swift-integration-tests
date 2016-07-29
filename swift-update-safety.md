@@ -35,7 +35,7 @@ Build the test package.
 
 ```
 RUN: mkdir -p %t.dir/Cmd
-RUN: %{swift} build -C %t.dir/Cmd &> %t.build-log
+RUN: %{swift} build -C %t.dir/Cmd 2>&1 | tee %t.build-log
 RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 
 CHECK-BUILD-LOG: Compile Swift Module 'Cmd'
