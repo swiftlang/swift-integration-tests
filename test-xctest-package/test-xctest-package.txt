@@ -11,7 +11,7 @@
 // RUN: mkdir -p %t.dir/tool
 // RUN: cp %s %t.dir/tool/Package.swift
 // RUN: cp %S/main.swift %t.dir/tool/main.swift
-// RUN: %{swift} build --chdir %t.dir/tool -v > %t.build-log
+// RUN: %{swift} build --chdir %t.dir/tool -v 2>&1 | tee %t.build-log
 //
 // Check the build log.
 //

@@ -7,8 +7,8 @@
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
 RUN: %{swift} package --chdir %t.dir/Project init --type library
-RUN: %{swift} build --chdir %t.dir/Project &> %t.build-log
-RUN: %{swift} test --chdir %t.dir/Project &> %t.test-log
+RUN: %{swift} build --chdir %t.dir/Project 2>&1 | tee %t.build-log
+RUN: %{swift} test --chdir %t.dir/Project 2>&1 | tee %t.test-log
 ```
 
 ## Check the build log.
@@ -28,9 +28,9 @@ RUN: %{FileCheck} --check-prefix CHECK-TEST-LOG --input-file %t.test-log %s
 ```
 
 ```
-# CHECK-TEST-LOG: Compile Swift Module 'ProjectTests'
-# CHECK-TEST-LOG: Test Suite 'All tests' passed
-# CHECK-TEST-LOG-NEXT: Executed 1 test
+CHECK-TEST-LOG: Compile Swift Module 'ProjectTests'
+CHECK-TEST-LOG: Test Suite 'All tests' passed
+CHECK-TEST-LOG-NEXT: Executed 1 test
 ```
 
 ## Check there were no compile errors or warnings.

@@ -12,7 +12,7 @@
 # RUN: cp -R %{swiftpm_srcdir} %t.dir/swiftpm
 
 # RUN: rm -rf %t.dir/swiftpm/.build
-# RUN: %{swift} build --chdir %t.dir/swiftpm > %t.build-log
+# RUN: %{swift} build --chdir %t.dir/swiftpm 2>&1 | tee %t.build-log
 
 # Check the build log.
 #

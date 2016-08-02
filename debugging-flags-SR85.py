@@ -9,7 +9,7 @@
 # RUN: touch %t.dir/tool/Package.swift
 # RUN: echo 'let foo = "bar"' > %t.dir/tool/main.swift
 # RUN: echo 'print(foo)' >> %t.dir/tool/main.swift
-# RUN: %{swift} build --chdir %t.dir/tool -v > %t.build-log
+# RUN: %{swift} build --chdir %t.dir/tool -v 2>&1 | tee %t.build-log
 
 # RUN: echo 'breakpoint set -f main.swift -l 2' > %t.dir/lldb.script
 # RUN: echo 'run' >> %t.dir/lldb.script
