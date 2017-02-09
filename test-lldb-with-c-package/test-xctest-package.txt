@@ -1,7 +1,7 @@
 // Check that we can debug a system module package.
 //
-// FIXME Figure out linux.
-// REQUIRES: platform=Darwin
+// Unfortunately this doesn't work yet. See: SR-3280 and SR-3863.
+// REQUIRES: disabled
 //
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
@@ -37,5 +37,3 @@
 // RUN: %{lldb} %t.dir/Foo/.build/debug/Foo -o "b main.swift:2" -o r -o "po foo()" -b &> %t.lldb
 // RUN: %{FileCheck} --check-prefix CHECK-LLDB-LOG --input-file %t.lldb %s
 // CHECK-LLDB-LOG: (lldb) po foo()
-// Unfortunately this doesn't work yet. See: SR-3280 and SR-3863.
-// CHECK-LLDB-LOG-NEXT: error: in auto-import:
