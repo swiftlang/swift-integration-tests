@@ -1,5 +1,8 @@
 // Check that we can debug a system module package.
 //
+// FIXME Figure out linux.
+// REQUIRES: platform=Darwin
+//
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
