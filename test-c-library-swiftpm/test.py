@@ -21,7 +21,7 @@
 # RUN: git -C %t.dir/z commit -m "Creating package"
 # RUN: git -C %t.dir/z tag 1.0.0
 
-# RUN: %{swift} build --package-path %t.dir/testApp 2>&1 | tee %t.build-log
+# RUN: %{swift} build --chdir %t.dir/testApp 2>&1 | tee %t.build-log
 
 # Check the build log.
 #
@@ -41,7 +41,7 @@
 
 # Verify that another 'swift build' does nothing.
 #
-# RUN: %{swift} build --package-path %t.dir/testApp 2>&1 | tee %t.rebuild-log
+# RUN: %{swift} build --chdir %t.dir/testApp 2>&1 | tee %t.rebuild-log
 # RUN: echo END-OF-INPUT >> %t.rebuild-log
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 #
