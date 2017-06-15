@@ -6,7 +6,7 @@
 // RUN: cp %s %t.dir/more\ spaces/special\ tool/Package.swift
 // RUN: echo 'foo()' > %t.dir/more\ spaces/special\ tool/main.swift
 // RUN: echo 'func foo() { print("HI") }' > %t.dir/more\ spaces/special\ tool/some\ file.swift
-// RUN: %{swift} build --chdir %t.dir/more\ spaces/special\ tool -v 2>&1 | tee %t.build-log
+// RUN: %{swift} build --package-path %t.dir/more\ spaces/special\ tool -v 2>&1 | tee %t.build-log
 //
 // Check the build log.
 //

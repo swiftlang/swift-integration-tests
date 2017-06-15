@@ -22,7 +22,7 @@
 // RUN: git -C %t.dir/CFoo tag 1.0.0
 //
 // Check the build log.
-// RUN: %{swift} build --chdir %t.dir/Foo 2>&1 | tee %t.build-log
+// RUN: %{swift} build --package-path %t.dir/Foo 2>&1 | tee %t.build-log
 // RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 // CHECK-BUILD-LOG: Compile Swift Module 'Foo'
 
