@@ -17,15 +17,15 @@ if len(sys.argv) > 1:
     swift = sys.argv[1]
 
 def debug(p):
-    print 'before:'
-    print p.before
-    print '--'
-    print 'after:'
-    print p.after
-    print '--'
-    print p.match.groups()
-    print '--'
-    
+    print('before:')
+    print(p.before)
+    print('--')
+    print('after:')
+    print(p.after)
+    print('--')
+    print(p.match.groups())
+    print('--')
+
 repl = pexpect.spawn(swift)
 
 repl.expect('(.*)Welcome to Apple Swift version (.*)\r\n')
@@ -40,4 +40,4 @@ try:
 except:
     debug(repl)
 
-print "OK"
+print("OK")
