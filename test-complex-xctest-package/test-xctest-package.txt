@@ -4,7 +4,7 @@
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
 // RUN: cp -r %S/SwiftCMixed %t.dir/
-// RUN: %{swift} test --package-path %t.dir/SwiftCMixed -v 2>&1 | tee %t.build-log
+// RUN: %{swift-test} --package-path %t.dir/SwiftCMixed -v 2>&1 | tee %t.build-log
 //
 // Check the build log.
 //
