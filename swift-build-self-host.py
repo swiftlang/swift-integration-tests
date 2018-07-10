@@ -18,7 +18,7 @@
 #
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 #
-# CHECK-BUILD-LOG: Compile Swift Module 'PackageDescription'
+# CHECK-BUILD-LOG: Compile Swift Module 'Build'
 
 # Verify that the build worked.
 #

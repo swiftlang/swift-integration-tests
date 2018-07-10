@@ -1,5 +1,8 @@
 // Check if test modules can import Swift modules which depend on C module.
 //
+// <rdar://problem/42022436> Convert SwiftPM tests in swift-integration repo to PackageDescription4
+// REQUIRES: disabled
+//
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
