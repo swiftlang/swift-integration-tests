@@ -1,5 +1,7 @@
 // Trivial test for importing XCTest.
 //
+// <rdar://problem/42022436> Convert SwiftPM tests in swift-integration repo to PackageDescription4
+// REQUIRES: disabled
 //
 // This test doesn't work on Darwin yet, because the XCTest overlay isn't shipped
 // with the package, and can't be found:#
