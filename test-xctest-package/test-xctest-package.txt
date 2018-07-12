@@ -1,11 +1,6 @@
+// swift-tools-version:4.2
 // Trivial test for importing XCTest.
 //
-// <rdar://problem/42022436> Convert SwiftPM tests in swift-integration repo to PackageDescription4
-// REQUIRES: disabled
-//
-// This test doesn't work on Darwin yet, because the XCTest overlay isn't shipped
-// with the package, and can't be found:#
-//   <rdar://problem/23600043> Cannot import XCTest with swift from a downloadable package
 // REQUIRES: platform=Linux
 //
 // Make a sandbox dir.
@@ -32,5 +27,8 @@
 import PackageDescription
 
 let package = Package(
-   name: "tool"
+   name: "tool",
+   targets: [
+       .target(name: "tool", path: "./"),
+   ]
 )
