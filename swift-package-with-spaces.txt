@@ -1,7 +1,5 @@
+// swift-tools-version:4.2
 // Check a package with spaces.
-//
-// <rdar://problem/42022436> Convert SwiftPM tests in swift-integration repo to PackageDescription4
-// REQUIRES: disabled
 //
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
@@ -28,5 +26,8 @@
 import PackageDescription
 
 let package = Package(
-   name: "special tool"
+   name: "special tool",
+   targets: [
+       .target(name: "special tool", path: "./"),
+   ]
 )

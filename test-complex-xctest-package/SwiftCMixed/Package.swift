@@ -1,8 +1,11 @@
+// swift-tools-version:4.2
 import PackageDescription
 
 let package = Package(
     name: "SwiftCMixed",
     targets: [
-        Target(name: "swifty", dependencies: ["see"]),
+        .target(name: "swifty", dependencies: ["see"]),
+        .target(name: "see", dependencies: []),
+        .testTarget(name: "swiftyTests", dependencies: ["swifty"]),
     ]
 )

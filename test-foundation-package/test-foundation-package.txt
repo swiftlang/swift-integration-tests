@@ -1,7 +1,5 @@
+// swift-tools-version:4.2
 // Trivial test for importing Foundation
-//
-// <rdar://problem/42022436> Convert SwiftPM tests in swift-integration repo to PackageDescription4
-// REQUIRES: disabled
 //
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
@@ -29,5 +27,8 @@
 import PackageDescription
 
 let package = Package(
-   name: "tool"
+   name: "tool",
+   targets: [
+       .target(name: "tool", path: "./"),
+   ]
 )
