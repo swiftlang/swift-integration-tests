@@ -2,6 +2,8 @@
 # that the package manager included in this package is functional for a moderate
 # sized, real project.
 #
+# REQUIRES: disabled
+#
 # REQUIRES: have-swiftpm
 #
 # Make a sandbox dir. If you want to experiment with this test without waiting
