@@ -1,0 +1,7 @@
+
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-stdlib %S/main.swift -o %t/main
+RUN: %t/main | %{FileCheck} %s
+
+CHECK: foo bar baz: file:/foo
