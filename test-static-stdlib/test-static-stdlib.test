@@ -1,4 +1,6 @@
 
+REQUIRES: SR9384
+
 RUN: rm -rf %t
 RUN: mkdir -p %t
 RUN: %{swiftc} -static-stdlib %S/main.swift -o %t/main
