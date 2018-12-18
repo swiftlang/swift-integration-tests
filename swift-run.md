@@ -17,7 +17,7 @@ RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.run-log %s
 ```
 
 ```
-CHECK-BUILD-LOG: Compile Swift Module 'secho'
+CHECK-BUILD-LOG: Compiling Swift Module 'secho'
 CHECK-BUILD-LOG: Linking {{.*}}secho
 CHECK-BUILD-LOG: 1 two
 ```
