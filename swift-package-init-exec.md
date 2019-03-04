@@ -5,8 +5,8 @@
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
-RUN: %{swift} package --package-path %t.dir/Project init --type executable
-RUN: %{swift} build --package-path %t.dir/Project 2>&1 | tee %t.build-log
+RUN: %{swift-package} --package-path %t.dir/Project init --type executable
+RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
 ```
 
 ## Check the build log.
