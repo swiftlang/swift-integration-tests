@@ -5,9 +5,9 @@
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/secho
-RUN: %{swift} package --package-path %t.dir/secho init --type executable
+RUN: %{swift-package} --package-path %t.dir/secho init --type executable
 RUN: echo "import Foundation; print(CommandLine.arguments.dropFirst().joined(separator: \" \"))" >%t.dir/secho/Sources/secho/main.swift
-RUN: %{swift} run --package-path %t.dir/secho secho 1 "two" 2>&1 | tee %t.run-log
+RUN: %{swift-run} --package-path %t.dir/secho secho 1 "two" 2>&1 | tee %t.run-log
 ```
 
 ## Check the run log.

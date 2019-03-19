@@ -6,9 +6,9 @@
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
-RUN: %{swift} package --package-path %t.dir/Project init --type library
-RUN: %{swift} build --package-path %t.dir/Project 2>&1 | tee %t.build-log
-RUN: %{swift} test --package-path %t.dir/Project 2>&1 | tee %t.test-log
+RUN: %{swift-package} --package-path %t.dir/Project init --type library
+RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
+RUN: %{swift-test} --package-path %t.dir/Project 2>&1 | tee %t.test-log
 ```
 
 ## Check the build log.
