@@ -18,7 +18,7 @@ RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 ```
 
 ```
-CHECK-BUILD-LOG: Compiling Swift Module 'Project'
+CHECK-BUILD-LOG: Compiling {{.*}}Project{{.*}}
 ```
 
 ## Check the test log.
@@ -28,7 +28,7 @@ RUN: %{FileCheck} --check-prefix CHECK-TEST-LOG --input-file %t.test-log %s
 ```
 
 ```
-CHECK-TEST-LOG: Compiling Swift Module 'ProjectTests'
+CHECK-TEST-LOG: Compiling {{.*}}ProjectTests{{.*}}
 CHECK-TEST-LOG: Test Suite 'All tests' passed
 CHECK-TEST-LOG-NEXT: Executed 1 test
 ```
