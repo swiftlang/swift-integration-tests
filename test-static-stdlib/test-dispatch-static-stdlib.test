@@ -1,0 +1,7 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-stdlib %S/dispatch_test.swift -ldispatch -lswiftDispatch -lDispatchStubs -o %t/dispatch_test
+RUN: %t/dispatch_test | %{FileCheck} %s
+
+CHECK: OK
