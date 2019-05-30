@@ -1,0 +1,8 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-executable -o %t/static_executable %S/static-executable.swift
+RUN: %t/static_executable | %{FileCheck} %s
+RUN: file %t/static_executable | %{FileCheck} %s --check-prefix=FILE
+CHECK: OK
+FILE: , statically linked,
