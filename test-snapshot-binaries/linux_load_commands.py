@@ -85,12 +85,12 @@ def process_library(args, lib):
     numberOfLinesSeen = 0
 
     print("Visiting lib: {}".format(lib))
-    lines = list(reversed(subprocess.check_output([args.read_elf, "-program-headers", lib]).split("\n")[:-1]))
+    lines = list(reversed(subprocess.check_output([args.read_elf, "-program-headers", lib]).split(b"\n")[:-1]))
     p = ParseState()
 
     # Until we finish parsing or run out of lines to parse...
     while len(lines) > 0:
-        l = lines.pop()
+        l = lines.pop().decode("utf-8")
         print("DUMP: '{}'".format(l))
         assert(p is not None)
         curState = p
@@ -143,7 +143,7 @@ def get_libraries(package_path):
         "-iname",
         "*.so"
     ]
-    return subprocess.check_output(cmd).split("\n")[:-1]
+    return subprocess.check_output(cmd).split(b"\n")[:-1]
 
 def main():
     parser = argparse.ArgumentParser()
@@ -154,7 +154,7 @@ def main():
 
     libraries = get_libraries(args.package_path)
     for l in libraries:
-          process_library(args, l)
+          process_library(args, l.decode("utf-8"))
     sys.exit(0)
 
 if __name__ == "__main__":
