@@ -1,0 +1,6 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc}  -o %t/test-foundation-xml %S/test-foundation-xml.swift
+RUN: %t/test-foundation-xml | %{FileCheck} %s
+CHECK: NSXMLDocument
