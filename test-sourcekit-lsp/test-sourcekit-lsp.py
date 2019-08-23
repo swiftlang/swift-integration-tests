@@ -6,7 +6,7 @@
 # RUN: mkdir -p %t.dir
 # RUN: cp -r %S/pkg %t.dir/
 
-# RUN: %{swift-build} --package-path %t.dir/pkg -Xswiftc -index-ignore-system-modules -v 2>&1 | tee %t.build-log
+# RUN: env SWIFTPM_ENABLE_CLANG_INDEX_STORE=1 %{swift-build} --package-path %t.dir/pkg -Xswiftc -index-ignore-system-modules -v 2>&1 | tee %t.build-log
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 # CHECK-BUILD-LOG-NOT: error:
 
