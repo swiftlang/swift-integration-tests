@@ -141,7 +141,8 @@ def main():
     if p.returncode == 0:
       print('OK')
     else:
-      print('error: sourcekit-lsp exited with code {}'.format(exitcode))
+      print('error: sourcekit-lsp exited with code {}'.format(p.returncode))
+      sys.exit(1)
     # CHECK: OK
 
 if __name__ == "__main__":
