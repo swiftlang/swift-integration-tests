@@ -1,6 +1,8 @@
 # Canary test for sourcekit-lsp, covering interaction with swiftpm and toolchain
 # language services.
 
+# REQUIRES: have-sourcekit-lsp
+
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
 # RUN: mkdir -p %t.dir
