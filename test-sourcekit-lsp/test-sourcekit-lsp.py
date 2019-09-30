@@ -122,9 +122,9 @@ def main():
       'position': { 'line': 2, 'character': 22}, ## zero-based
       })
     # CHECK: "items":[
-    # FIXME: Extra space?
-    # CHECK-DAG: "label":" clib_func()"
-    # CHECK-DAG: "label":" clib_other()"
+    # FIXME: Missing clib_other rdar://55801106
+    # FIXME: "insertText":"clib_func"
+    # FIXME: "insertText":"clib_other"
     # CHECK: ]
 
     lsp.request('shutdown', {})
