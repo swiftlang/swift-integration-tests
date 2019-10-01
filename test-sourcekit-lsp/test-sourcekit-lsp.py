@@ -122,9 +122,8 @@ def main():
       'position': { 'line': 2, 'character': 22}, ## zero-based
       })
     # CHECK: "items":[
-    # FIXME: Extra space?
-    # CHECK-DAG: "label":" clib_func()"
-    # CHECK-DAG: "label":" clib_other()"
+    # CHECK-DAG: "insertText":"clib_func"
+    # CHECK-DAG: "insertText":"clib_other"
     # CHECK: ]
 
     lsp.request('shutdown', {})
@@ -135,7 +134,8 @@ def main():
     print('')
     print('==== OUTPUT ====')
 
-    p = subprocess.Popen([args.sourcekit_lsp, '--sync'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
+    p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     out, _ = p.communicate(lsp.script)
     print(out)
     print('')
