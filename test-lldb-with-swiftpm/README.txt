@@ -1,5 +1,6 @@
 // Check that we can debug a Swift package.
 //
+// REQUIRES: rdar56054057
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
