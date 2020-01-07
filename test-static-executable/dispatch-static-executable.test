@@ -1,0 +1,9 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-executable  -lDispatchStubs -lbsd -o %t/dispatch_test %S/dispatch-static-executable.swift
+RUN: %t/dispatch_test | %{FileCheck} %s
+RUN: file %t/dispatch_test | %{FileCheck} %s --check-prefix=FILE
+CHECK: Dispatch
+FILE: , statically linked,
+
