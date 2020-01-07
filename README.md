@@ -32,6 +32,7 @@ Here is a partial list of tests in the repository:
 | test-import-glibc        | Compile a source file importing and using Glibc                  |
 | test-multi-compile       | Compile multiple source files into an executable                 |
 | test-multi-compile-glibc | Compile multiple source files importing Glibc into an executable |
+| test-static-executable   | Test -static-executable on Linux with Dispatch and Foundation    |
 | test-static-lib          | Compile multiple source files into a static library              |
 | test-xctest-package      | Build a package that imports XCTest                              |
 
