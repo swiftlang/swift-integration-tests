@@ -3,6 +3,10 @@
 
 # REQUIRES: have-sourcekit-lsp
 
+# Disabled on Linux on swift-5.2-branch due to sporadic failures that were fixed
+# on master in sourcekit-lsp fae2fe85a7b40.
+# REQUIRES: platform=Darwin
+
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
 # RUN: mkdir -p %t.dir
