@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 
 # REQUIRES: platform=Linux
 # RUN: rm -rf %T && mkdir -p %t

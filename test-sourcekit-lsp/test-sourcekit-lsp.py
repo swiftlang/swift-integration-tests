@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 # Canary test for sourcekit-lsp, covering interaction with swiftpm and toolchain
 # language services.
 
