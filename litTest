@@ -3,4 +3,4 @@
 set -ex
 
 # Delegate to lit to actually test.
-python ../llvm/utils/lit/lit.py -sv "$@"
+python ../llvm-project/llvm/utils/lit/lit.py -sv "$@"
