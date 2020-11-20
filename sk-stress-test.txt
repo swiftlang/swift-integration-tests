@@ -2,6 +2,9 @@
 //
 // REQUIRES: platform=Darwin
 //
+// FIXME: invocation of sk-stress-test is failing with -4 in CI.
+// REQUIRES: rdar71634533
+//
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
 // RUN: cp %s %t.dir/test.swift
