@@ -1,0 +1,9 @@
+REQUIRES: platform=Linux
+REQUIRES: rdar73904335
+
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc}  -o %t/test-foundation-networking-fetch %S/test-foundation-networking-fetch.swift
+RUN: %t/test-foundation-networking-fetch | %{FileCheck} %s
+
+CHECK: {{[0-9]+}}

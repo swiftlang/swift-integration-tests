@@ -1,4 +1,5 @@
 REQUIRES: platform=Linux
+REQUIRES: rdar73904335
 RUN: rm -rf %t
 RUN: mkdir -p %t
 RUN: %{swiftc}  -o %t/test-foundation-networking %S/test-foundation-networking.swift
