@@ -143,7 +143,7 @@ def get_libraries(package_path):
         "-iname",
         "*.so"
     ]
-    return subprocess.check_output(cmd, text=True).split("\n")[:-1]
+    return subprocess.check_output(cmd, universal_newlines=True).split("\n")[:-1]
 
 def main():
     parser = argparse.ArgumentParser()
