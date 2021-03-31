@@ -136,7 +136,7 @@ def main():
     print('==== OUTPUT ====')
 
     skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
-    p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
     out, _ = p.communicate(lsp.script)
     print(out)
     print('')
