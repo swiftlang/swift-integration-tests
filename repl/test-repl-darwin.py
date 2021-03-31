@@ -6,7 +6,7 @@
 #
 # RUN: rm -rf %t.dir
 # RUN: mkdir %t.dir
-# RUN: python %s %{swift} > %t.dir/output.txt
+# RUN: %{python} %s %{swift} > %t.dir/output.txt
 # RUN: %{FileCheck} --input-file %t.dir/output.txt %s
 # CHECK: OK
 
