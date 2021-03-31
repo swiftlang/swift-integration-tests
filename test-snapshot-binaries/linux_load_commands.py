@@ -85,7 +85,7 @@ def process_library(args, lib):
     numberOfLinesSeen = 0
 
     print("Visiting lib: {}".format(lib))
-    lines = list(reversed(subprocess.check_output([args.read_elf, "-program-headers", lib]).split("\n")[:-1]))
+    lines = list(reversed(subprocess.check_output([args.read_elf, "-program-headers", lib], universal_newlines=True).split("\n")[:-1]))
     p = ParseState()
 
     # Until we finish parsing or run out of lines to parse...
