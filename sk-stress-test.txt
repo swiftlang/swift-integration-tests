@@ -1,6 +1,7 @@
 // Trivial test for the SourceKit stress tester and compiler wrapper.
 //
 // REQUIRES: platform=Darwin
+// REQUIRES: rdar83727870
 //
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
