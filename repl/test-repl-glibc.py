@@ -2,7 +2,7 @@
 #
 # REQUIRES: platform=Linux
 # REQUIRES: have-pexpect
-#
+# REQUIRES: rdar83892173
 # RUN: rm -rf %t.dir
 # RUN: mkdir %t.dir
 # RUN: %{python} %s %{swift} > %t.dir/output.txt
