@@ -1,0 +1,5 @@
+// Check Swift-DocC can compile and preview documentation.
+//
+// RNU: rm -rf %S/Output
+// RUN: %{docc} convert %S/DocCTest/Sources/DocCTest/DocCTest.docc --output-path %S/Output
+// RUN: ls %S/Output
