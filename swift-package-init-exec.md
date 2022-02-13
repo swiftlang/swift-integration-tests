@@ -6,6 +6,8 @@
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
 RUN: %{swift-package} --package-path %t.dir/Project init --type executable
+RUN: rm -rf %t.dir/Project/Sources/Project/*
+RUN: echo "print(\"Hello, World!\")" >%t.dir/Project/Sources/Project/main.swift
 RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
 ```
 
@@ -29,7 +31,7 @@ RUN: %{FileCheck} --check-prefix CHECK-TOOL-OUTPUT --input-file %t.out %s
 ```
 
 ```
-CHECK-TOOL-OUTPUT: Hello, world!
+CHECK-TOOL-OUTPUT: Hello, World!
 ```
 
 ## Check there were no compile errors or warnings.
