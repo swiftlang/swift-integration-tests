@@ -1,8 +1,17 @@
-// Check Swift-DocC can compile and preview documentation.
+// Check that Swift-DocC can compile documentation.
 //
-// RNU: rm -rf %S/Output
-// RUN: %{docc} convert %S/DocCTest/Sources/DocCTest/DocCTest.docc --output-path %S/Output
-// RUN: ls %S/Output
-
-// REQUIRES: rdar91638258
-
+// Clear any existing state:
+// RUN: rm -rf %S/symbol-graph-directory
+// RUN: rm -rf %S/Output
+// RUN: rm -rf %S/DocCTest/.build
+//
+// Build symbol graphs for the test package:
+// RUN: mkdir %S/symbol-graph-directory
+// RUN: %{swift} build --target DocCTest --package-path %S/DocCTest -Xswiftc -emit-symbol-graph -Xswiftc -emit-symbol-graph-dir -Xswiftc %S/symbol-graph-directory
+//
+// Convert the documentation
+// RUN: %{docc} convert %S/DocCTest/Sources/DocCTest/DocCTest.docc --output-path %S/Output --additional-symbol-graph-dir %S/symbol-graph-directory
+//
+// Assert that the produced documentation archive has a 'data' subdirectory as expected
+// RUN: ls %S/Output/data
+// RUN: ls %S/Output/data/documentation/docctest
