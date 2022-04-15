@@ -15,3 +15,4 @@
 // Assert that the produced documentation archive has a 'data' subdirectory as expected
 // RUN: ls %t.dir/DocCTest.doccarchive/data
 // RUN: ls %t.dir/DocCTest.doccarchive/data/documentation/docctest
+// RUN: ls %t.dir/DocCTest.doccarchive/data/documentation/docctest/docctest/variable.json
