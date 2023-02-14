@@ -13,9 +13,6 @@
 # RUN: %{readelf} -d %{package_path}/usr/lib/swift/linux/libswiftRemoteMirror.so | %{FileCheck} --check-prefix CHECK-RM %s
 # CHECK-RM-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}:/usr/lib/swift/linux
 #
-# RUN: %{readelf} -d %{package_path}/usr/lib/swift/linux/libswift_Differentiation.so | %{FileCheck} --check-prefix CHECK-SD %s
-# CHECK-SD-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}:/usr/lib/swift/linux
-#
 # RUN: %{readelf} -d %{package_path}/usr/lib/swift/linux/libswiftGlibc.so | %{FileCheck} --check-prefix CHECK-SG %s
 # CHECK-SG-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}:/usr/lib/swift/linux
 #
