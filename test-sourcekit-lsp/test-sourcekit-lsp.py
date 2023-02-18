@@ -138,7 +138,7 @@ def main():
     skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
     p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf-8')
     out, _ = p.communicate(lsp.script)
-    print(out.encode(encoding='ascii', errors='replace')
+    print(out.encode(encoding='ascii', errors='replace'))
     print('')
 
     if p.returncode == 0:
