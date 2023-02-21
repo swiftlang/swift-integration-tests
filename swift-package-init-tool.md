@@ -1,13 +1,12 @@
-# Test `swift package init` (executable)
+# Test `swift package init` (tool)
 
-## Create a new package with an executable target.
+## Create a new package with a tool target.
 
 ```
 RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
-RUN: %{swift-package} --package-path %t.dir/Project init --type executable
+RUN: %{swift-package} --package-path %t.dir/Project init --type tool
 RUN: rm -rf %t.dir/Project/Sources/*
-RUN: echo "print(\"Hello, World!\")" >%t.dir/Project/Sources/main.swift
 RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
 ```
 
