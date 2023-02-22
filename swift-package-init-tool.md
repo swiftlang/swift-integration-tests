@@ -7,6 +7,7 @@ RUN: rm -rf %t.dir
 RUN: mkdir -p %t.dir/Project
 RUN: %{swift-package} --package-path %t.dir/Project init --type tool
 RUN: rm -rf %t.dir/Project/Sources/*
+RUN: echo "print(\"Hello, World!\")" >%t.dir/Project/Sources/main.swift
 RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
 ```
 
