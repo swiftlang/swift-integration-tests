@@ -1,0 +1,23 @@
+// REQUIRES: platform=Darwin
+//
+// RUN: rm -rf %t
+// RUN: mkdir -p %t
+// RUN: %{swift-build} --package-path %S/ExamplePlugin --build-path %t
+//
+// RUN: %{swift} -frontend -typecheck -swift-version 5 \
+// RUN:   -enable-experimental-feature Macros \
+// RUN:   -dump-macro-expansions \
+// RUN:   -load-plugin-executable %t/debug/ExamplePlugin#ExamplePlugin \
+// RUN:   %S/file.swift > %t/expansions-dump.txt 2>&1
+// 
+// RUN: %{FileCheck} %s < %t/expansions-dump.txt  
+
+// CHECK-LABEL: @__swiftmacro_4file7MyClassC8MetadatafMm_.swift
+// CHECK-NEXT: ------------------------------
+// CHECK-NEXT: static var __metadata__ = ["name": "MyClass"]
+// CHECK-NEXT: ------------------------------
+
+// CHECK-LABEL: @__swiftmacro_4file7MyClassC5valueSivpfi4echofMf_.swift as Int
+// CHECK-NEXT: ------------------------------
+// CHECK-NEXT: /* echo */12
+// CHECK-NEXT: ------------------------------
