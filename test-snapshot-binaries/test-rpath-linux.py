@@ -38,4 +38,10 @@
 # CHECK-SDE-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}:/usr/lib/swift/linux
 #
 # RUN: %{readelf} -d %{package_path}/usr/lib/liblldb.so | %{FileCheck} --check-prefix CHECK-LLDB %s
-# CHECK-LLDB: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}$ORIGIN/../lib/swift/linux
+# CHECK-LLDB: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}$ORIGIN/swift/linux
+#
+# RUN: find %{package_path} -name "lib*\.so" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-LIB %s
+# CHECK-LIB-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
+#
+# RUN: find %{package_path}/usr/bin -type f | grep -Ev "\.py|\.txt|\.sh" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-BIN %s
+# CHECK-BIN-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
