@@ -1,4 +1,5 @@
-REQUIRES: platform=Linux
+
+REQUIRES: SR9384
 
 RUN: rm -rf %t
 RUN: mkdir -p %t
