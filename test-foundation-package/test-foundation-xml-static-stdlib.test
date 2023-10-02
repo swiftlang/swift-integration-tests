@@ -1,0 +1,10 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-stdlib %S/test-foundation-xml.swift -o %t/test-foundation-xml
+RUN: %t/test-foundation-xml | %{FileCheck} %s
+RUN: ldd %t/test-foundation-xml | %{FileCheck} --check-prefix LDD %s
+CHECK: NSXMLDocument
+LDD-NOT: libFoundation.so
+LDD-NOT: libFoundationXML.so
+LDD-NOT: libCoreFoundation.so

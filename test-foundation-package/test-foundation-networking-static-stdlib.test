@@ -1,0 +1,11 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -static-stdlib %S/test-foundation-networking.swift -o %t/test-foundation-networking
+RUN: %t/test-foundation-networking | %{FileCheck} %s
+RUN: ldd %t/test-foundation-networking | %{FileCheck} --check-prefix LDD %s
+
+CHECK: http://example.com
+LDD-NOT: libFoundation.so
+LDD-NOT: libFoundationNetworking.so
+LDD-NOT: libCoreFoundation.so
