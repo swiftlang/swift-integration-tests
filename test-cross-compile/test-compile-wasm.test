@@ -1,0 +1,7 @@
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc} -target wasm32-unknown-wasi -parse-stdlib -c %S/main.swift -o %t/main.o
+RUN: %{readobj} %t/main.o | %{FileCheck} %s
+
+CHECK: Format: WASM
+CHECK: Arch: wasm32
