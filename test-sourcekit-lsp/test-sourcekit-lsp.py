@@ -15,6 +15,8 @@
 # RUN: %{python} -u %s %{sourcekit-lsp} %t.dir/pkg 2>&1 | tee %t.run-log
 # RUN: %{FileCheck} --input-file %t.run-log %s
 
+# REQUIRES: rdar119243893
+
 import argparse
 import json
 import os
