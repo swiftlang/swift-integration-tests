@@ -2,7 +2,6 @@
 # language services.
 
 # REQUIRES: have-sourcekit-lsp
-# REQUIRES: rdar123765692
 
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
