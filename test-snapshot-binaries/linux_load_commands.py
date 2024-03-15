@@ -158,7 +158,10 @@ def main():
           # When linking the swiftCompilerModules to lldb, the text segment
           # gets RWE for some reason.
           # TODO: remove this workaround once rdar://87078244 is fixed
-          if "liblldb.so" in l:
+          #
+          # Additionally th cpython lldb library also has this too
+          # TODO: remove that workaround once rdar://124693792 is fixed
+          if "liblldb.so" in l or "_lldb.cpython" in l:
                 continue
 
           process_library(args, l)
