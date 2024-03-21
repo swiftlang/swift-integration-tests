@@ -2,6 +2,8 @@
 # language services.
 
 # REQUIRES: have-sourcekit-lsp
+# rdar://125139888
+# REQUIRES: platform=Darwin
 
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
