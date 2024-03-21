@@ -12,7 +12,7 @@
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 # CHECK-BUILD-LOG-NOT: error:
 
-# RUN: %{python} -u %s %{sourcekit-lsp} %t.dir/pkg 2>&1 | tee %t.run-log
+# RUN: %{python} -u %s %{sourcekit-lsp} %t.dir/pkg | tee %t.run-log
 # RUN: %{FileCheck} --input-file %t.run-log %s
 
 import argparse
