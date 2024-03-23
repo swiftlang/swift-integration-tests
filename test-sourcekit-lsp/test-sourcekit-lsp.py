@@ -2,8 +2,6 @@
 # language services.
 
 # REQUIRES: have-sourcekit-lsp
-# rdar://125139888
-# REQUIRES: platform=Darwin
 
 # Make a sandbox dir.
 # RUN: rm -rf %t.dir
@@ -14,141 +12,206 @@
 # RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 # CHECK-BUILD-LOG-NOT: error:
 
-# RUN: %{python} -u %s %{sourcekit-lsp} %t.dir/pkg 2>&1 | tee %t.run-log
+# RUN: %{python} -u %s %{sourcekit-lsp} %t.dir/pkg | tee %t.run-log
 # RUN: %{FileCheck} --input-file %t.run-log %s
 
+from typing import Dict
 import argparse
 import json
-import os
 import subprocess
 import sys
+from pathlib import Path
+import re
 
-class LspScript(object):
-  def __init__(self):
-    self.request_id = 0
-    self.script = ''
 
-  def request(self, method, params):
-    body = json.dumps({
-      'jsonrpc': '2.0',
-      'id': self.request_id,
-      'method': method,
-      'params': params
-    })
-    self.request_id += 1
-    self.script += 'Content-Length: {}\r\n\r\n{}'.format(len(body), body)
+class LspConnection:
+    def __init__(self, server_path: str):
+        self.request_id = 0
+        self.process = subprocess.Popen(
+            [server_path],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            encoding="utf-8",
+        )
 
-  def note(self, method, params):
-    body = json.dumps({
-      'jsonrpc': '2.0',
-      'method': method,
-      'params': params
-    })
-    self.script += 'Content-Length: {}\r\n\r\n{}'.format(len(body), body)
+    def send_data(self, dict: Dict[str, object]):
+        """
+        Encode the given dict as JSON and send it to the LSP server with the 'Content-Length' header.
+        """
+        assert self.process.stdin
+        body = json.dumps(dict)
+        data = "Content-Length: {}\r\n\r\n{}".format(len(body), body)
+        self.process.stdin.write(data)
+        self.process.stdin.flush()
+
+    def send_request(self, method: str, params: Dict[str, object]) -> str:
+        """
+        Send a request of the given method and parameters to the LSP server and wait for the response.
+        """
+        self.request_id += 1
+
+        self.send_data(
+            {
+                "jsonrpc": "2.0",
+                "id": self.request_id,
+                "method": method,
+                "params": params,
+            }
+        )
+
+        assert self.process.stdout
+        # Read Content-Length: 123\r\n
+        # Note: Even though the Content-Length header ends with \r\n, `readline` returns it with a single \n.
+        header = self.process.stdout.readline()
+        match = re.match(r"Content-Length: ([0-9]+)\n$", header)
+        assert match, f"Expected Content-Length header, got '{header}'"
+
+        # The Content-Length header is followed by an empty line
+        empty_line = self.process.stdout.readline()
+        assert empty_line == "\n", f"Expected empty line, got '{empty_line}'"
+
+        # Read the actual response
+        response = self.process.stdout.read(int(match.group(1)))
+        assert (
+            f'"id":{self.request_id}' in response
+        ), f"Expected response for request {self.request_id}, got '{response}'"
+        return response
+
+    def send_notification(self, method: str, params: Dict[str, object]):
+        """
+        Send a notification to the LSP server. There's nothing to wait for in response
+        """
+        self.send_data({"jsonrpc": "2.0", "method": method, "params": params})
+
+    def wait_for_exit(self, timeout: int) -> int:
+        """
+        Wait for the LSP server to terminate.
+        """
+        return self.process.wait(timeout)
+
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('sourcekit_lsp')
-    parser.add_argument('package')
+    parser.add_argument("sourcekit_lsp")
+    parser.add_argument("package")
     args = parser.parse_args()
 
-    lsp = LspScript()
-    lsp.request('initialize', {
-      'rootPath': args.package,
-      'capabilities': {},
-      'initializationOptions': {
-        'listenToUnitEvents': False,
-      }
-    })
+    package_dir = Path(args.package)
+    main_swift = package_dir / "Sources" / "exec" / "main.swift"
+    clib_c = package_dir / "Sources" / "clib" / "clib.c"
 
-    main_swift = os.path.join(args.package, 'Sources', 'exec', 'main.swift')
-    with open(main_swift, 'r') as f:
-      main_swift_content = f.read()
-    
-    lsp.note('textDocument/didOpen', {
-      'textDocument': {
-        'uri': 'file://' + main_swift,
-        'languageId': 'swift',
-        'version': 0,
-        'text': main_swift_content,
-      }
-    })
+    connection = LspConnection(args.sourcekit_lsp)
+    connection.send_request(
+        "initialize",
+        {
+            "rootPath": args.package,
+            "capabilities": {},
+            "initializationOptions": {
+                "listenToUnitEvents": False,
+            },
+        },
+    )
 
-    lsp.request('workspace/_pollIndex', {})
-    lsp.request('textDocument/definition', {
-      'textDocument': { 'uri': 'file://' + main_swift },
-      'position': { 'line': 3, 'character': 6}, ## zero-based
-      })
+    connection.send_notification(
+        "textDocument/didOpen",
+        {
+            "textDocument": {
+                "uri": f"file://{main_swift}",
+                "languageId": "swift",
+                "version": 0,
+                "text": main_swift.read_text(),
+            }
+        },
+    )
 
+    connection.send_request("workspace/_pollIndex", {})
+    foo_definition_response = connection.send_request(
+        "textDocument/definition",
+        {
+            "textDocument": {"uri": f"file://{main_swift}"},
+            "position": {"line": 3, "character": 6},  ## zero-based
+        },
+    )
+    print("foo() definition response")
+    # CHECK-LABEL: foo() definition response
+    print(foo_definition_response)
     # CHECK: "result":[
     # CHECK-DAG: lib.swift
     # CHECK-DAG: "line":1
     # CHECK-DAG: "character":14
     # CHECK: ]
 
-    lsp.request('textDocument/definition', {
-      'textDocument': { 'uri': 'file://' + main_swift },
-      'position': { 'line': 4, 'character': 0}, ## zero-based
-      })
+    clib_func_definition_response = connection.send_request(
+        "textDocument/definition",
+        {
+            "textDocument": {"uri": f"file://{main_swift}"},
+            "position": {"line": 4, "character": 0},  ## zero-based
+        },
+    )
 
+    print("clib_func() definition response")
+    # CHECK-LABEL: clib_func() definition response
+    print(clib_func_definition_response)
     # CHECK: "result":[
     # CHECK-DAG: clib.c
     # CHECK-DAG: "line":2
     # CHECK-DAG: "character":5
     # CHECK: ]
 
-    lsp.request('textDocument/completion', {
-      'textDocument': { 'uri': 'file://' + main_swift },
-      'position': { 'line': 3, 'character': 6}, ## zero-based
-      })
+    swift_completion_response = connection.send_request(
+        "textDocument/completion",
+        {
+            "textDocument": {"uri": f"file://{main_swift}"},
+            "position": {"line": 3, "character": 6},  ## zero-based
+        },
+    )
+    print("Swift completion response")
+    # CHECK-LABEL: Swift completion response
+    print(swift_completion_response)
     # CHECK: "items":[
     # CHECK-DAG: "label":"foo()"
     # CHECK-DAG: "label":"self"
     # CHECK: ]
 
-    clib_c = os.path.join(args.package, 'Sources', 'clib', 'clib.c')
-    with open(clib_c, 'r') as f:
-      clib_c_content = f.read()
-    
-    lsp.note('textDocument/didOpen', {
-      'textDocument': {
-        'uri': 'file://' + clib_c,
-        'languageId': 'c',
-        'version': 0,
-        'text': clib_c_content,
-      }
-    })
+    connection.send_notification(
+        "textDocument/didOpen",
+        {
+            "textDocument": {
+                "uri": f"file://{clib_c}",
+                "languageId": "c",
+                "version": 0,
+                "text": clib_c.read_text(),
+            }
+        },
+    )
 
-    lsp.request('textDocument/completion', {
-      'textDocument': { 'uri': 'file://' + clib_c },
-      'position': { 'line': 2, 'character': 22}, ## zero-based
-      })
+    c_completion_response = connection.send_request(
+        "textDocument/completion",
+        {
+            "textDocument": {"uri": f"file://{clib_c}"},
+            "position": {"line": 2, "character": 22},  ## zero-based
+        },
+    )
+    print("C completion response")
+    # CHECK-LABEL: C completion response
+    print(c_completion_response)
     # CHECK: "items":[
     # CHECK-DAG: "insertText":"clib_func"
     # Missing "clib_other" from clangd on rebranch - rdar://73762053
     # DISABLED-DAG: "insertText":"clib_other"
     # CHECK: ]
 
-    lsp.request('shutdown', {})
-    lsp.note('exit', {})
+    connection.send_request("shutdown", {})
+    connection.send_notification("exit", {})
 
-    print('==== INPUT ====')
-    print(lsp.script)
-    print('')
-    print('==== OUTPUT ====')
-
-    skargs = [args.sourcekit_lsp, '--sync', '-Xclangd', '-sync']
-    p = subprocess.Popen(skargs, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf-8')
-    out, _ = p.communicate(lsp.script)
-    print(out)
-    print('')
-
-    if p.returncode == 0:
-      print('OK')
+    return_code = connection.wait_for_exit(timeout=1)
+    if return_code == 0:
+        print("OK")
     else:
-      print('error: sourcekit-lsp exited with code {}'.format(p.returncode))
-      sys.exit(1)
+        print(f"error: sourcekit-lsp exited with code {return_code}")
+        sys.exit(1)
     # CHECK: OK
+
 
 if __name__ == "__main__":
     main()
