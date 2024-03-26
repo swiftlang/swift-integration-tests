@@ -44,6 +44,45 @@ class LspConnection:
         self.process.stdin.write(data)
         self.process.stdin.flush()
 
+    def read_message_from_lsp_server(self) -> str:
+        """
+        Read a single message sent from the LSP server to the client.
+        This can be a request reply, notification or request sent from the server to the client.
+        """
+        assert self.process.stdout
+        # Read Content-Length: 123\r\n
+        # Note: Even though the Content-Length header ends with \r\n, `readline` returns it with a single \n.
+        header = self.process.stdout.readline()
+        match = re.match(r"Content-Length: ([0-9]+)\n$", header)
+        assert match, f"Expected Content-Length header, got '{header}'"
+
+        # The Content-Length header is followed by an empty line
+        empty_line = self.process.stdout.readline()
+        assert empty_line == "\n", f"Expected empty line, got '{empty_line}'"
+
+        # Read the actual response
+        return self.process.stdout.read(int(match.group(1)))
+
+    def read_request_reply_from_lsp_server(self, request_id: int) -> str:
+        """
+        Read all messages sent from the LSP server until we see a request reply.
+        Assert that this request reply was for the given request_id and return it.
+        """
+        message = self.read_message_from_lsp_server()
+        message_obj = json.loads(message)
+        if "result" not in message_obj:
+            # We received a message that wasn't the request reply. 
+            # Log it, ignore it and wait for the next message.
+            print("Received message")
+            print(message)
+            return self.read_request_reply_from_lsp_server(request_id)
+        # We always wait for a request reply before sending the next request.
+        # If we received a request reply, it should thus have the request ID of the last request that we sent.
+        assert (
+            message_obj["id"] == self.request_id
+        ), f"Expected response for request {self.request_id}, got '{message}'"
+        return message
+
     def send_request(self, method: str, params: Dict[str, object]) -> str:
         """
         Send a request of the given method and parameters to the LSP server and wait for the response.
@@ -59,23 +98,7 @@ class LspConnection:
             }
         )
 
-        assert self.process.stdout
-        # Read Content-Length: 123\r\n
-        # Note: Even though the Content-Length header ends with \r\n, `readline` returns it with a single \n.
-        header = self.process.stdout.readline()
-        match = re.match(r"Content-Length: ([0-9]+)\n$", header)
-        assert match, f"Expected Content-Length header, got '{header}'"
-
-        # The Content-Length header is followed by an empty line
-        empty_line = self.process.stdout.readline()
-        assert empty_line == "\n", f"Expected empty line, got '{empty_line}'"
-
-        # Read the actual response
-        response = self.process.stdout.read(int(match.group(1)))
-        assert (
-            f'"id":{self.request_id}' in response
-        ), f"Expected response for request {self.request_id}, got '{response}'"
-        return response
+        return self.read_request_reply_from_lsp_server(self.request_id)
 
     def send_notification(self, method: str, params: Dict[str, object]):
         """
