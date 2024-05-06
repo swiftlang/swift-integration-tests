@@ -43,5 +43,5 @@
 # RUN: find %{package_path} -name "lib*\.so" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-LIB %s
 # CHECK-LIB-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
 #
-# RUN: find %{package_path}/usr/bin -type f | grep -Ev "\.py|\.txt|\.sh" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-BIN %s
+# RUN: find %{package_path}/usr/bin -type f | grep -Ev "\.py|\.txt|\.sh|\.cfg" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-BIN %s
 # CHECK-BIN-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
