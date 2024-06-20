@@ -3,4 +3,4 @@ import Foundation
 
 let u = URL(fileURLWithPath: "file:///foo")
 
-print("foo bar baz: \(u)")
+print("foo bar baz: \(u.relativePath)")
