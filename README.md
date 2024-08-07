@@ -11,9 +11,10 @@ swift-project.
 
 Run the tests using:
 
-    sh ./litTest -sv --param package-path=/path/to/downloadable-package .
+    sh ./litTest -sv --param package-path=/path/to/downloadable-package --param llvm-bin-dir=/usr/bin .
 
-where the path is the unarchived package root path.
+where the first path is the unarchived package root path and the second has LLVM
+utilities like `FileCheck`.
 
 Tests
 -----
