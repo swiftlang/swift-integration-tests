@@ -42,7 +42,7 @@ RUN: %{FileCheck} --check-prefix CHECK-SWIFT-TESTING-LOG --input-file %t.swift-t
 
 ```
 CHECK-SWIFT-TESTING-LOG: Test run started.
-CHECK-SWIFT-TESTING-LOG-NEXT: Test run with 1 test passed after {{.*}} seconds.
+CHECK-SWIFT-TESTING-LOG: Test run with 1 test passed after {{.*}} seconds.
 ```
 
 ## Check there were no compile errors or warnings.
