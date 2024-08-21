@@ -19,7 +19,7 @@
 // Verify that the tool exists and works.
 //
 // RUN: test -x %t.dir/tool/.build/debug/toolPackageTests.xctest
-// RUN: %t.dir/tool/.build/debug/toolPackageTests.xctest > %t.out
+// RUN: %t.dir/tool/.build/debug/toolPackageTests.xctest --testing-library swift-testing > %t.out
 // RUN: %{FileCheck} --check-prefix CHECK-TOOL-OUTPUT --input-file %t.out %s
 //
 // CHECK-TOOL-OUTPUT: HI
