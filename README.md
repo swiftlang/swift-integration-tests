@@ -21,20 +21,21 @@ Tests
 
 Here is a partial list of tests in the repository:
 
-| Test Name                | Functionality                                                    |
-|--------------------------|------------------------------------------------------------------|
-| basic                    | Check output of `swift --version`                                |
-| example-package-dealer   | Build the example package-dealer package                         |
-| repl                     | Various REPL sanity checks, notably importing Darwin and Glibc   |
-| swift-build-self-host    | Use swift build to build itself                                  |
-| swift-compiler           | Compile a basic swift file                                       |
-| test-c-library-swiftpm   | Build a package that links a 3rd party library                   |
-| test-foundation-package  | Build a package that imports Foundation                          |
-| test-import-glibc        | Compile a source file importing and using Glibc                  |
-| test-multi-compile       | Compile multiple source files into an executable                 |
-| test-multi-compile-glibc | Compile multiple source files importing Glibc into an executable |
-| test-static-lib          | Compile multiple source files into a static library              |
-| test-xctest-package      | Build a package that imports XCTest                              |
+| Test Name                  | Functionality                                                    |
+|----------------------------|------------------------------------------------------------------|
+| basic                      | Check output of `swift --version`                                |
+| example-package-dealer     | Build the example package-dealer package                         |
+| repl                       | Various REPL sanity checks, notably importing Darwin and Glibc   |
+| swift-build-self-host      | Use swift build to build itself                                  |
+| swift-compiler             | Compile a basic swift file                                       |
+| test-c-library-swiftpm     | Build a package that links a 3rd party library                   |
+| test-foundation-package    | Build a package that imports Foundation                          |
+| test-import-glibc          | Compile a source file importing and using Glibc                  |
+| test-multi-compile         | Compile multiple source files into an executable                 |
+| test-multi-compile-glibc   | Compile multiple source files importing Glibc into an executable |
+| test-static-lib            | Compile multiple source files into a static library              |
+| test-xctest-package        | Build a package that imports XCTest                              |
+| test-swift-testing-package | Build a package that imports Swift Testing                       |
 
 
 ## Contributing 
