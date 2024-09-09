@@ -1,0 +1,8 @@
+REQUIRES: platform=Linux
+RUN: rm -rf %t
+RUN: mkdir -p %t
+RUN: %{swiftc}  -o %t/test-foundation-macros %S/test-foundation-macros.swift
+RUN: %t/test-foundation-macros | %{FileCheck} %s
+CHECK: Predicate
+LLD-NOT: libFoundationMacros.so
+LLD-NOT: libFoundation.so
