@@ -108,7 +108,12 @@ class LspConnection:
         """
         Wait for the LSP server to terminate.
         """
-        return self.process.wait(timeout)
+        stdout, stderr = self.process.communicate(timeout=timeout)
+        print("stdout before exit")
+        print(stdout)
+        print("stderr before exit")
+        print(stderr)
+        return self.process.returncode
 
 
 def main():
@@ -225,7 +230,7 @@ def main():
     connection.send_request("shutdown", {})
     connection.send_notification("exit", {})
 
-    return_code = connection.wait_for_exit(timeout=1)
+    return_code = connection.wait_for_exit(timeout=5)
     if return_code == 0:
         print("OK")
     else:
