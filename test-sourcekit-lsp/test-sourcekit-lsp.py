@@ -30,8 +30,7 @@ class LspConnection:
         self.process = subprocess.Popen(
             [server_path],
             stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            encoding="utf-8",
+            stdout=subprocess.PIPE
         )
 
     def send_data(self, dict: Dict[str, object]):
@@ -40,8 +39,8 @@ class LspConnection:
         """
         assert self.process.stdin
         body = json.dumps(dict)
-        data = "Content-Length: {}\r\n\r\n{}".format(len(body), body)
-        self.process.stdin.write(data)
+        data = f"Content-Length: {len(body)}\r\n\r\n{body}"
+        self.process.stdin.write(data.encode('utf-8'))
         self.process.stdin.flush()
 
     def read_message_from_lsp_server(self) -> str:
@@ -51,17 +50,16 @@ class LspConnection:
         """
         assert self.process.stdout
         # Read Content-Length: 123\r\n
-        # Note: Even though the Content-Length header ends with \r\n, `readline` returns it with a single \n.
-        header = self.process.stdout.readline()
-        match = re.match(r"Content-Length: ([0-9]+)\n$", header)
+        header = self.process.stdout.readline().decode('utf-8')
+        match = re.match(r"Content-Length: ([0-9]+)\r\n$", header)
         assert match, f"Expected Content-Length header, got '{header}'"
 
         # The Content-Length header is followed by an empty line
-        empty_line = self.process.stdout.readline()
-        assert empty_line == "\n", f"Expected empty line, got '{empty_line}'"
+        empty_line = self.process.stdout.readline().decode('utf-8')
+        assert empty_line == "\r\n", f"Expected empty line, got '{empty_line}'"
 
         # Read the actual response
-        return self.process.stdout.read(int(match.group(1)))
+        return self.process.stdout.read(int(match.group(1))).decode('utf-8')
 
     def read_request_reply_from_lsp_server(self, request_id: int) -> str:
         """
@@ -71,7 +69,7 @@ class LspConnection:
         message = self.read_message_from_lsp_server()
         message_obj = json.loads(message)
         if "result" not in message_obj:
-            # We received a message that wasn't the request reply. 
+            # We received a message that wasn't the request reply.
             # Log it, ignore it and wait for the next message.
             print("Received message")
             print(message)
