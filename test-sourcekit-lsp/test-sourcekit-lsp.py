@@ -1,6 +1,7 @@
 # Canary test for sourcekit-lsp, covering interaction with swiftpm and toolchain
 # language services.
 
+# REQUIRES: rdar147100271
 # REQUIRES: have-sourcekit-lsp
 
 # Make a sandbox dir.
