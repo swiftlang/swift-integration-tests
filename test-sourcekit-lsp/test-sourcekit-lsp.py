@@ -1,7 +1,6 @@
 # Canary test for sourcekit-lsp, covering interaction with swiftpm and toolchain
 # language services.
 
-# REQUIRES: rdar147100271
 # REQUIRES: have-sourcekit-lsp
 
 # Make a sandbox dir.
@@ -134,7 +133,7 @@ def main():
             "rootPath": args.package,
             "capabilities": {},
             "initializationOptions": {
-                "listenToUnitEvents": False,
+                "experimentalFeatures": ["synchronize-request"]
             },
         },
     )
@@ -151,7 +150,7 @@ def main():
         },
     )
 
-    connection.send_request("workspace/_pollIndex", {})
+    connection.send_request("workspace/_synchronize", {"index": True})
     foo_definition_response = connection.send_request(
         "textDocument/definition",
         {
