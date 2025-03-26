@@ -132,9 +132,6 @@ def main():
         {
             "rootPath": args.package,
             "capabilities": {},
-            "initializationOptions": {
-                "experimentalFeatures": ["synchronize-request"]
-            },
         },
     )
 
@@ -150,7 +147,7 @@ def main():
         },
     )
 
-    connection.send_request("workspace/_synchronize", {"index": True})
+    connection.send_request("workspace/synchronize", {"index": True})
     foo_definition_response = connection.send_request(
         "textDocument/definition",
         {
