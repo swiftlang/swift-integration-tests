@@ -1,7 +1,7 @@
 # Test `swift package init` (library)
 
 ```
-XFAIL: OS=ios
+XFAIL: OS=macos
 ```
 
 ## Create a new package with an executable target.
