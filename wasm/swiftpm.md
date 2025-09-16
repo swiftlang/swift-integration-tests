@@ -1,5 +1,11 @@
 # SwiftPM checks for Wasm Swift SDKs
 
+This test can only run on Linux CI as we only build Swift SDK for Wasm on Linux CI nodes.
+
+```
+REQUIRES: platform=Linux
+```
+
 1. Let's install Swift SDK for Wasm first:
 
 ```
