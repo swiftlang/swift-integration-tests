@@ -11,7 +11,7 @@ REQUIRES: platform=Linux
 ```
 RUN: %{swift-sdk} list | %{FileCheck} --check-prefix CHECK-SDK-LIST-BEFORE %s
 CHECK-SDK-LIST-BEFORE: No Swift SDKs are currently installed.
-RUN: find "%{swift-sdk-generator_srcdir}/Bundles" -d 1 | xargs %{swift-sdk} install | %{FileCheck} --check-prefix CHECK-SDK-INSTALL %s
+RUN: find "%{swift-sdk-generator_srcdir}/Bundles" -mindepth 1 -maxdepth 1 | xargs %{swift-sdk} install | %{FileCheck} --check-prefix CHECK-SDK-INSTALL %s
 CHECK-SDK-INSTALL: Swift SDK bundle at
 CHECK-SDK-INSTALL: successfully installed as
 RUN: %{swift-sdk} list | grep wasm | wc -l | %{FileCheck} --check-prefix CHECK-SDK-LIST-AFTER %s
