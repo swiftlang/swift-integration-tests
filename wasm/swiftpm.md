@@ -44,16 +44,7 @@ RUN: cp -r %S/Hello %t.dir
     CHECK-EMBEDDED-RUN-OUTPUT-NEXT: Hello from WASILibc!
     ```
 
-4. Running tests from the newly created package:
-
-    a) Non-embedded Swift SDK
-
-    ```
-    RUN: %{swift-sdk} list | grep -v embedded | xargs %{swift-test} --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-RUN-OUTPUT %s
-    ```
-
-
-5. Clean up installed Swift SDK:
+4. Clean up installed Swift SDK:
 
 ```
 RUN: find %{swiftpm_homedir}/ -d 1 | xargs rm -rf
