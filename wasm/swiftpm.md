@@ -47,7 +47,7 @@ RUN: cp -r %S/Hello %t.dir
 4. Clean up installed Swift SDK:
 
 ```
-RUN: find %{swiftpm_homedir}/ -d 1 | xargs rm -rf
+RUN: find %{swiftpm_homedir}/ -mindepth 1 -maxdepth 1 | xargs rm -rf
 RUN: %{swift-sdk} list | %{FileCheck} --check-prefix CHECK-SDK-LIST-FINAL %s
 CHECK-SDK-LIST-FINAL: No Swift SDKs are currently installed.
 ```
