@@ -18,7 +18,7 @@ RUN: %{swift-sdk} list | grep wasm | wc -l | %{FileCheck} --check-prefix CHECK-S
 CHECK-SDK-LIST-AFTER: 2
 ```
 
-2. Creating a package from `init` template:
+2. Using a prepared basic package that exercises Swift stdlib and `import WASILibc`:
 
 ```
 RUN: rm -rf %t.dir
@@ -26,7 +26,7 @@ RUN: mkdir -p %t.dir
 RUN: cp -r %S/Hello %t.dir
 ```
 
-3. Building and running prepared `"Hello, world!"` executable from the newly created package:
+3. Building and running the prepared package:
 
     a) Non-embedded Swift SDK
 
@@ -44,7 +44,7 @@ RUN: cp -r %S/Hello %t.dir
     CHECK-EMBEDDED-RUN-OUTPUT-NEXT: Hello from WASILibc!
     ```
 
-4. Clean up installed Swift SDK:
+4. Clean up installed Swift SDKs:
 
 ```
 RUN: find %{swiftpm_homedir}/ -mindepth 1 -maxdepth 1 | xargs rm -rf
