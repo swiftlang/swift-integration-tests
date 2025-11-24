@@ -48,3 +48,13 @@ RUN: cp -r %S/Hello %t.dir
     CHECK-EMBEDDED-RUN-OUTPUT: Hello, world!
     CHECK-EMBEDDED-RUN-OUTPUT-NEXT: Hello from WASILibc!
     ```
+
+5. Verifying that `swift test` works with the prepared package:
+
+    a) Only non-embedded Swift SDK is currently supported
+
+    ```
+    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep -v embedded | xargs %{swift-test} --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-TEST-OUTPUT %s
+    CHECK-TEST-OUTPUT: Test run with 1 tests in 1 suites passed
+    CHECK-TEST-OUTPUT: Executed 1 test, with 0 failures
+    ```

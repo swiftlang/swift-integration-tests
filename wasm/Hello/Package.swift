@@ -7,5 +7,8 @@ let package = Package(
         .executableTarget(
             name: "Hello"
         ),
+        .testTarget(
+            name: "HelloTests"
+        ),
     ]
 )
