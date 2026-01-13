@@ -48,3 +48,19 @@ RUN: cp -r %S/Hello %t.dir
     CHECK-EMBEDDED-RUN-OUTPUT: Hello, world!
     CHECK-EMBEDDED-RUN-OUTPUT-NEXT: Hello from WASILibc!
     ```
+
+5. Building with code coverage enabled
+
+    a) Non-embedded Swift SDK
+
+    ```
+    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep -v embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-COVERAGE-BUILD-OUTPU %s
+    CHECK-COVERAGE-BUILD-OUTPUT: Build complete!
+    ```
+
+    b) Embedded Swift SDK
+
+    ```
+    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-EMBEDDED-RUN-OUTPUT %s
+    CHECK-EMBEDDED-COVERAGE-BUILD-OUTPUT: Build complete!
+    ```
