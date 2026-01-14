@@ -54,13 +54,13 @@ RUN: cp -r %S/Hello %t.dir
     a) Non-embedded Swift SDK
 
     ```
-    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep -v embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-COVERAGE-BUILD-OUTPUT %s
+    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep -v embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid -Xlinker -lwasi-emulated-mman --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-COVERAGE-BUILD-OUTPUT %s
     CHECK-COVERAGE-BUILD-OUTPUT: Build complete!
     ```
 
     b) Embedded Swift SDK
 
     ```
-    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-EMBEDDED-COVERAGE-BUILD-OUTPUT %s
+    RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep embedded | xargs %{swift-build} --enable-code-coverage -Xlinker -lwasi-emulated-getpid  -Xlinker -lwasi-emulated-mman --swift-sdks-path %t.dir/swift-sdks --package-path %t.dir/Hello --swift-sdk | %{FileCheck} --check-prefix CHECK-EMBEDDED-COVERAGE-BUILD-OUTPUT %s
     CHECK-EMBEDDED-COVERAGE-BUILD-OUTPUT: Build complete!
     ```
