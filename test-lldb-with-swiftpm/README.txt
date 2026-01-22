@@ -1,6 +1,5 @@
 // Check that we can debug a Swift package.
 //
-// REQUIRES: rdar56054057
 // Make a sandbox dir.
 // RUN: rm -rf %t.dir
 // RUN: mkdir -p %t.dir
@@ -18,8 +17,8 @@
 // CHECK-APP-OUTPUT-NEXT: OK
 //
 // Try debugging the application.
-// RUN: %{lldb} %t.dir/.build/debug/exec -o "b core.swift:5" -o r -o "po value" -b &> %t.lldb
+// RUN: %{lldb} %t.dir/.build/debug/exec -o "b core.swift:5" -o r -o "p value" -b &> %t.lldb
 // RUN: %{FileCheck} --check-prefix CHECK-LLDB-LOG --input-file %t.lldb %s
-// CHECK-LLDB-LOG: (lldb) po value
+// CHECK-LLDB-LOG: (lldb) p value
 // CHECK-LLDB-LOG-NEXT: 5
 
