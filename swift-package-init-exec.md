@@ -18,15 +18,15 @@ RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 ```
 
 ```
-CHECK-BUILD-LOG: Compiling {{.*}}Project{{.*}}
-CHECK-BUILD-LOG: Linking {{.*}}Project
+CHECK-BUILD-LOG: Build complete!
 ```
 
 ## Verify that the tool was built and works.
 
 ```
-RUN: test -x %t.dir/Project/.build/debug/Project
-RUN: %t.dir/Project/.build/debug/Project > %t.out
+RUN: %{swift-build} --package-path %t.dir/Project --show-bin-path > %t.bin-path
+RUN: sed 's|$|/Project|' %t.bin-path | xargs test -x
+RUN: sed 's|$|/Project|' %t.bin-path | xargs sh -c '"$1" > %t.out' --
 RUN: %{FileCheck} --check-prefix CHECK-TOOL-OUTPUT --input-file %t.out %s
 ```
 

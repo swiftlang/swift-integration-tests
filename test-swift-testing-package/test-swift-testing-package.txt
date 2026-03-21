@@ -16,10 +16,9 @@
 //
 // CHECK-BUILD-LOG: swiftc{{.*}} -module-name tool
 //
-// Verify that the tool exists and works.
+// Verify that the tests can be run.
 //
-// RUN: test -x %t.dir/tool/.build/debug/toolPackageTests.xctest
-// RUN: %t.dir/tool/.build/debug/toolPackageTests.xctest --testing-library swift-testing > %t.out
+// RUN: %{swift-test} --package-path %t.dir/tool --enable-swift-testing --disable-xctest > %t.out 2>&1
 // RUN: %{FileCheck} --check-prefix CHECK-TOOL-OUTPUT --input-file %t.out %s
 //
 // CHECK-TOOL-OUTPUT: HI
