@@ -14,6 +14,7 @@
 //
 // Check the exported codecov file.
 //
-// RUN: %{FileCheck} --check-prefix CHECK-CODECOV-JSON --input-file %t.dir/foo/.build/debug/codecov/foo.json %s
+// RUN: %{swift} test --package-path %t.dir/foo --show-codecov-path > %t.codecov-path
+// RUN: sed 's|^|--input-file |' %t.codecov-path | xargs %{FileCheck} --check-prefix CHECK-CODECOV-JSON %s
 //
 // CHECK-CODECOV-JSON: llvm.coverage.json.export

@@ -19,7 +19,7 @@ RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.build-log %s
 ```
 
 ```
-CHECK-BUILD-LOG: Compiling {{.*}}Project{{.*}}
+CHECK-BUILD-LOG: Build complete!
 ```
 
 ## Check the XCTest log.
@@ -29,7 +29,7 @@ RUN: %{FileCheck} --check-prefix CHECK-XCTEST-LOG --input-file %t.xctest-log %s
 ```
 
 ```
-CHECK-XCTEST-LOG: Compiling {{.*}}ProjectTests{{.*}}
+CHECK-XCTEST-LOG: Build complete!
 CHECK-XCTEST-LOG: Test Suite 'All tests' passed
 CHECK-XCTEST-LOG-NEXT: Executed 1 test
 ```

@@ -16,8 +16,9 @@
 //
 // Verify that the tool exists and works.
 //
-// RUN: test -x %t.dir/tool/.build/debug/tool
-// RUN: %t.dir/tool/.build/debug/tool > %t.out
+// RUN: %{swift-build} --package-path %t.dir/tool --show-bin-path > %t.bin-path
+// RUN: sed 's|$|/tool|' %t.bin-path | xargs test -x
+// RUN: sed 's|$|/tool|' %t.bin-path | xargs sh -c '"$1" > %t.out' --
 // RUN: %{FileCheck} --check-prefix CHECK-TOOL-OUTPUT --input-file %t.out %s
 //
 // CHECK-TOOL-OUTPUT: Printing URL

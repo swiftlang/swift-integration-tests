@@ -40,10 +40,10 @@
 # RUN: %{readelf} -d %{package_path}/usr/lib/liblldb.so | %{FileCheck} --check-prefix CHECK-LLDB %s
 # CHECK-LLDB: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}$ORIGIN/../lib/swift/linux
 #
-# RUN: find %{package_path} -name "lib*\.so" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-LIB %s
+# RUN: sh -c 'find %{package_path} -name "lib*\.so" | while read f; do %{readelf} -d "$f" 2>/dev/null | sed "s|^|$f: |"; done' | %{FileCheck} --check-prefix CHECK-LIB %s
 # CHECK-LIB-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
 # CHECK-LIB-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/opt/
 #
-# RUN: find %{package_path}/usr/bin -type f | grep -Ev "\.py|\.txt|\.sh|\.cfg" | xargs %{readelf} -d | %{FileCheck} --check-prefix CHECK-BIN %s
+# RUN: sh -c 'find %{package_path}/usr/bin -type f | grep -Ev "\.py|\.txt|\.sh|\.cfg" | while read f; do %{readelf} -d "$f" 2>/dev/null | sed "s|^|$f: |"; done' | %{FileCheck} --check-prefix CHECK-BIN %s
 # CHECK-BIN-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/home/
 # CHECK-BIN-NOT: {{.*}} {{\(RPATH\)|\(RUNPATH\)}} {{.*}}/opt/

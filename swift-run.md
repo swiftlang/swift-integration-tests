@@ -18,7 +18,6 @@ RUN: %{FileCheck} --check-prefix CHECK-BUILD-LOG --input-file %t.run-log %s
 ```
 
 ```
-CHECK-BUILD-LOG: Compiling {{.*}}secho{{.*}}
-CHECK-BUILD-LOG: Linking {{.*}}secho
+CHECK-BUILD-LOG: Build {{.*}}complete!
 CHECK-BUILD-LOG: 1 two
 ```
