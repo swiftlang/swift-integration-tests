@@ -8,7 +8,10 @@ RUN: mkdir -p %t.dir/Project
 RUN: %{swift-package} --package-path %t.dir/Project init --type executable
 RUN: rm -rf %t.dir/Project/Sources/*
 RUN: echo "print(\"Hello, World!\")" >%t.dir/Project/Sources/main.swift
-RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | tee %t.build-log
+COM: Filter linker warnings emitted when we link the
+COM: Swift stdlib from the toolchain (which is not inside the SDK,
+COM: where we assume all content is backwards compatible)
+RUN: %{swift-build} --package-path %t.dir/Project 2>&1 | grep -v "building for .*, but linking with dylib .* which was built for newer version" | tee %t.build-log
 ```
 
 ## Check the build log.
