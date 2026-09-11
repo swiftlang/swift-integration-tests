@@ -22,7 +22,7 @@ RUN: find "%{swift-sdk-generator_srcdir}/Bundles" -mindepth 1 -maxdepth 1 | xarg
 CHECK-SDK-INSTALL: Swift SDK bundle at
 CHECK-SDK-INSTALL: successfully installed as
 RUN: %{swift-sdk} list --swift-sdks-path %t.dir/swift-sdks | grep wasm | wc -l | %{FileCheck} --check-prefix CHECK-SDK-LIST-AFTER %s
-CHECK-SDK-LIST-AFTER: 2
+CHECK-SDK-LIST-AFTER: 4
 ```
 
 3. Using a prepared basic package that exercises Swift stdlib and `import WASILibc`:
